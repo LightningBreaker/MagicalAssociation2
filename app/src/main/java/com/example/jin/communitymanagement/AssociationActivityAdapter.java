@@ -36,19 +36,21 @@ public class AssociationActivityAdapter extends RecyclerView.Adapter<Association
 
     private List<AssociationActivity> m_association_ac_List;
     private Context mContest;
+    private  onRecyclerViewItemClickListener m_click_listener;
 
 
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
+        private onRecyclerViewItemClickListener itemClickListener = null;
         CardView cardView;
         ImageView activityImage;
         TextView activityName;
         TextView associationName;
         TextView activityTime;
 
-        public ViewHolder(View view)
+        public ViewHolder(View view,onRecyclerViewItemClickListener itemClickListener)
         {
             super(view);
             cardView=(CardView)view;
@@ -56,10 +58,20 @@ public class AssociationActivityAdapter extends RecyclerView.Adapter<Association
             activityName=(TextView)view.findViewById(R.id.text_ac_Name);
             associationName=(TextView)view.findViewById(R.id.text_ac_associationName);
             activityTime=(TextView)view.findViewById(R.id.text_ac_time);
-
+            this.itemClickListener=itemClickListener;
+            view.setOnClickListener(this);
         }
-    }
+        @Override
+        public void onClick(View view) {
+            if(itemClickListener!=null){
+                itemClickListener.onItemClick(view,getPosition());
+            }
+        }
 
+    }
+    public void setItemOnClickListener(onRecyclerViewItemClickListener listener){
+        m_click_listener=listener;
+    }
     public AssociationActivityAdapter(List<AssociationActivity> association_ac_List)
     {
         m_association_ac_List=association_ac_List;
@@ -72,28 +84,29 @@ public class AssociationActivityAdapter extends RecyclerView.Adapter<Association
             mContest=parent.getContext();
         }
         View view= LayoutInflater.from(mContest).inflate(R.layout.association_activity_item,parent,false);
-
-        final ViewHolder holder=new ViewHolder(view);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position;
-                position = holder.getAdapterPosition();
-                AssociationActivity associationActivity=m_association_ac_List.get(position+1);
-                Intent intent=new Intent(mContest, Activity_InfoActivity.class);
-                intent.putExtra(Activity_InfoActivity.INTRODUCTION,associationActivity.getIntroduction());
-                intent.putExtra(Activity_InfoActivity.START_TIME,associationActivity.getStart_time());
-                intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
-                intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
-                intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
-                byte[] bytes=get_bit_image(associationActivity.getBitmap());
-                intent.putExtra(Activity_InfoActivity.IMAGE,bytes);
-               mContest.startActivity(intent);
-
-            }
-        });
-        return new ViewHolder(view);
+//         final ViewHolder holder=new ViewHolder(view,m_click_listener);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int position;
+//                position = holder.getAdapterPosition();
+//                AssociationActivity associationActivity=m_association_ac_List.get(position);
+//                Intent intent=new Intent(mContest, Activity_InfoActivity.class);
+//                intent.putExtra(Activity_InfoActivity.INTRODUCTION,associationActivity.getIntroduction());
+//                intent.putExtra(Activity_InfoActivity.START_TIME,associationActivity.getStart_time());
+//                intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
+//                intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
+//                intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
+//                byte[] bytes=get_bit_image(associationActivity.getBitmap());
+//                intent.putExtra(Activity_InfoActivity.IMAGE,bytes);
+//               mContest.startActivity(intent);
+//
+//            }
+//        });
+        return  new ViewHolder(view,m_click_listener);
     }
+
+
     public byte[] get_bit_image(Bitmap bitmap)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -177,5 +190,10 @@ public class AssociationActivityAdapter extends RecyclerView.Adapter<Association
         applyAndAnimateMovedItems(association_ac_List);
     }
 
+
+    public  interface onRecyclerViewItemClickListener {
+
+        void onItemClick(View v, int position);
+    }
 
 }

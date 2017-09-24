@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.example.jin.communitymanagement.Activity_InfoActivity;
 import com.example.jin.communitymanagement.AssociationActivity;
 import com.example.jin.communitymanagement.AssociationActivityAdapter;
+import com.example.jin.communitymanagement.BaseActivity;
 import com.example.jin.communitymanagement.EditAssociationActivityActivity;
 import com.example.jin.communitymanagement.HeaderAdapter;
 import com.example.jin.communitymanagement.HomeFlag;
@@ -245,14 +246,32 @@ public class HomeFragment extends Fragment {
         initAssociationActivity();
 
 
-            homeRecyclerView=(RecyclerView) view.findViewById(R.id.home_recycler_view) ;
+        homeRecyclerView=(RecyclerView) view.findViewById(R.id.home_recycler_view) ;
 
 
         GridLayoutManager layoutManager=new GridLayoutManager(getContext(),1);
 
         homeRecyclerView.setLayoutManager(layoutManager);
         association_ac_adapter =new AssociationActivityAdapter(associationActivityList);
+        association_ac_adapter.setItemOnClickListener(new AssociationActivityAdapter.onRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                if(position==0)
+                    return;
+                AssociationActivity associationActivity=associationActivityList.get(position-1);
+                Intent intent=new Intent(getContext(), Activity_InfoActivity.class);
+                intent.putExtra(Activity_InfoActivity.INTRODUCTION,associationActivity.getIntroduction());
+                intent.putExtra(Activity_InfoActivity.START_TIME,associationActivity.getStart_time());
+                intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
+                intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
+                intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
+                Bitmap newBit=  BaseActivity.zoomImg(associationActivity.getBitmap(),600,600);
+                byte[] bytes=get_bit_image(newBit);
 
+                intent.putExtra(Activity_InfoActivity.IMAGE,bytes);
+                startActivity(intent);
+            }
+        });
         homeRecyclerView.setAdapter(association_ac_adapter);
         HeaderAdapter headerAdapter=new HeaderAdapter(association_ac_adapter);
         LayoutInflater inflater_header=LayoutInflater.from(getContext());
@@ -262,6 +281,7 @@ public class HomeFragment extends Fragment {
         homeRecyclerView.setAdapter(headerAdapter);
 
     }
+
 
     private void initRecycHeader(View view) {
         initHomeFlagList(view);
@@ -474,9 +494,9 @@ public class HomeFragment extends Fragment {
                     {
                         headerList.addAll(associationFlagList);
                     }
-                    adapterFlag.notifyItemRangeChanged(0,headerList.size());
+                    adapterFlag.notifyDataSetChanged();
 
-                   initAssociationActivity();
+//                   initAssociationActivity();
                 }
             } );
         }
@@ -552,6 +572,11 @@ public class HomeFragment extends Fragment {
 
 
     }
-
+    public byte[] get_bit_image(Bitmap bitmap)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
 
 }

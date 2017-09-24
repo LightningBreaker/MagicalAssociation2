@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPrimary">#333333</color>
+    <color name="colorPrimaryDark">#333333</color>
+    <color name="colorAccent">#333333</color>
+    <color name="colorText">#FFcc00</color>
+    <color name="windowColor">#222222</color>
+    <color name="white">#FFFFFF</color>
+    <color name="homeCardColor">#cc9966</color>
+
+    <color name="textColor">#666666</color>
+
+
+
+    <color name="colorPrimaryTrans">#a0673AB7</color>
+    <color name="colorAccentTrans">#a0009688</color>
+    <color name="colorBlackTrans">#a0000000</color>
+</resources>

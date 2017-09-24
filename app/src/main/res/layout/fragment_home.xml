@@ -1,0 +1,103 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/home_swipe_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="100dp" />
+
+
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text_home_backPaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="16dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_home_filer"
+                android:text="发布活动"
+                android:textColor="@color/colorText"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"/>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_home_add_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_activity"
+                app:fabSize="mini"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="right"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_home_add"
+                android:text="过滤机"
+                android:textColor="@color/colorText"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"/>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_home_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/filter17"
+                app:fabSize="mini"
+                />
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_home_function"
+            android:layout_gravity="right|bottom"
+
+            android:layout_marginRight="10dp"
+            app:fabSize="normal"
+            android:src="@drawable/function"/>
+
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -84,25 +84,7 @@ public class AssociationActivityAdapter extends RecyclerView.Adapter<Association
             mContest=parent.getContext();
         }
         View view= LayoutInflater.from(mContest).inflate(R.layout.association_activity_item,parent,false);
-//         final ViewHolder holder=new ViewHolder(view,m_click_listener);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int position;
-//                position = holder.getAdapterPosition();
-//                AssociationActivity associationActivity=m_association_ac_List.get(position);
-//                Intent intent=new Intent(mContest, Activity_InfoActivity.class);
-//                intent.putExtra(Activity_InfoActivity.INTRODUCTION,associationActivity.getIntroduction());
-//                intent.putExtra(Activity_InfoActivity.START_TIME,associationActivity.getStart_time());
-//                intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
-//                intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
-//                intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
-//                byte[] bytes=get_bit_image(associationActivity.getBitmap());
-//                intent.putExtra(Activity_InfoActivity.IMAGE,bytes);
-//               mContest.startActivity(intent);
-//
-//            }
-//        });
+
         return  new ViewHolder(view,m_click_listener);
     }
 

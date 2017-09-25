@@ -29,11 +29,13 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity android:name=".Activity_InfoActivity" />
-        <activity android:name=".EditProfilesActivity"></activity>
+        <activity android:name=".EditProfilesActivity" />
+        <activity android:name=".BorrowEditActivity" />
+        <activity android:name=".Borrow_Info_Activity"></activity>
     </application>
 
 </manifest>

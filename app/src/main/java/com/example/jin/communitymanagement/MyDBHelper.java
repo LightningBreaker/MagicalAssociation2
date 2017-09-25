@@ -30,6 +30,13 @@ public class MyDBHelper extends SQLiteOpenHelper {
             +"activity_name text,"
             +"image BLOB,"
             +"inNeedMoney integer)";
+    public  static  final  String CREATE_BORROW_TABLE="create table BorrowTable("+
+            "time_start text,"
+            +"time_end text,"
+            +"borrow_name text,"
+            +"connection text,"
+            +"introduction text,"
+            +"image BLOB)";
     private List<Bitmap> bitmapList=new ArrayList<>();
 
     private Context mContext;
@@ -47,6 +54,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USERDATA);
         db.execSQL(CREATE_AC_TABLE);
+        db.execSQL(CREATE_BORROW_TABLE);
         for (int i=0;i<bitmapList.size();i++)
         add_activity_to_database(db,"开始时间：2017年9月1日23时00分00秒","结束时间：2017年9月1日23时00分00秒","魅团",
                 "这是测试的活动",bitmapList.get(i),"测试活动",0);
@@ -55,6 +63,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists userData");
         db.execSQL("drop table if exists ActivityTable");
+        db.execSQL("drop table if exists BorrowTable");
         onCreate(db);
 
        // Toast.makeText(mContext, "升级成功", Toast.LENGTH_SHORT).show();

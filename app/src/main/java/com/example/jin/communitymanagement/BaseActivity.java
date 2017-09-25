@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
     public static Bitmap zoomImg(Bitmap bm, int newWidth , int newHeight){
         // 获得图片的宽高   
         int width = bm.getWidth();

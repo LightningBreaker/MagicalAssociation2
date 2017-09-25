@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-               getActivity().runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         initAssociationActivity();

@@ -26,6 +26,7 @@ import com.example.jin.communitymanagement.BaseActivity;
 import com.example.jin.communitymanagement.BorrowAdapter;
 import com.example.jin.communitymanagement.BorrowEditActivity;
 import com.example.jin.communitymanagement.BorrowItem;
+import com.example.jin.communitymanagement.Borrow_Info_Activity;
 import com.example.jin.communitymanagement.HeaderAdapter;
 import com.example.jin.communitymanagement.MainActivity;
 import com.example.jin.communitymanagement.R;
@@ -189,20 +190,19 @@ public class BorrowFragment extends Fragment {
        borrow_adapter.setItemOnClickListener(new BorrowAdapter.onMyItClickListener() {
            @Override
            public void onItemClick(View v, int position) {
-//               if(position==0)
-//                   return;
-//              BorrowItem borrowItem=BorrowList.get(position);
-//               Intent intent=new Intent(getContext(), Activity_InfoActivity.class);
-//               intent.putExtra(Activity_InfoActivity.INTRODUCTION,associationActivity.getIntroduction());
-//               intent.putExtra(Activity_InfoActivity.START_TIME,associationActivity.getStart_time());
-//               intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
-//               intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
-//               intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
-//               Bitmap newBit=  BaseActivity.zoomImg(associationActivity.getBitmap(),600,600);
-//               byte[] bytes=get_bit_image(newBit);
-//
-//               intent.putExtra(Activity_InfoActivity.IMAGE,bytes);
-//               startActivity(intent);
+
+              BorrowItem borrowItem=BorrowList.get(position);
+               Intent intent=new Intent(getContext(),Borrow_Info_Activity.class);
+               intent.putExtra(Borrow_Info_Activity.INTRODUCTION,borrowItem.getIntroduction());
+               intent.putExtra(Borrow_Info_Activity.START_TIME,borrowItem.getStart_time());
+               intent.putExtra(Borrow_Info_Activity.END_TIME,borrowItem.getEnd_time());
+               intent.putExtra(Borrow_Info_Activity.BR_NAME, borrowItem.getBorrowName());
+               intent.putExtra(Borrow_Info_Activity.CONNECTION,borrowItem.getConnection());
+               Bitmap newBit=  BaseActivity.zoomImg(borrowItem.getBitmap(),400,400);
+               byte[] bytes=get_bit_image(newBit);
+
+               intent.putExtra(Borrow_Info_Activity.IMAGE,bytes);
+               startActivity(intent);
            }
        });
 

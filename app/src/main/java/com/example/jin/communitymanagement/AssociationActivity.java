@@ -16,7 +16,15 @@ public class AssociationActivity {
     private String end_time;
     private String introduction;
     private int inNeedMoney;
+    private  String connection;
 
+    public String getConnection() {
+        return connection;
+    }
+
+    public void setConnection(String connection) {
+        this.connection = connection;
+    }
 
     public String getStart_time() {
         return start_time;
@@ -62,7 +70,7 @@ public class AssociationActivity {
     //opo
     public AssociationActivity(String associationName, String activityName,
                                String start_time,String end_time,Bitmap bitmap,String introduction
-    ,int inNeedMoney) {
+    ,int inNeedMoney,String connection) {
         this.associationName = associationName;
         this.activityName = activityName;
        this.end_time=end_time;
@@ -70,7 +78,7 @@ public class AssociationActivity {
         this.introduction=introduction;
         this.inNeedMoney=inNeedMoney;
         this.bitmap=bitmap;
-
+         this.connection=connection;
     }
 
     public String getAssociationName() {

@@ -74,6 +74,7 @@ public class EditAssociationActivityActivity extends AppCompatActivity {
     private String timeEnd="";
     private EditText edit_asso_name;
     private EditText edit_introduction;
+    private  EditText edit_connection;
     private Bitmap my_bitmap;
 
     private CheckBox in_money;
@@ -110,7 +111,7 @@ public class EditAssociationActivityActivity extends AppCompatActivity {
         fab_ok=(FloatingActionButton)findViewById(R.id.fab_edit_association_ac_ok);
         edit_introduction=(EditText)findViewById(R.id.editView_edit_ac_introduction);
         edit_asso_name=(EditText)findViewById(R.id.EditView_edit_ac_association_name);
-
+        edit_connection=(EditText)findViewById(R.id.editView_edit_ac_connection);
         in_money=(CheckBox)findViewById(R.id.checkbox_edit_ac_is_need_money);
         edit_activity_name=(EditText)findViewById(R.id.editView_edit_ac_activity_name);
 
@@ -132,7 +133,7 @@ public class EditAssociationActivityActivity extends AppCompatActivity {
         String m_end=textViewEditEndTime.getText().toString();
         String asso_name=edit_asso_name.getText().toString();
         String introduction=edit_introduction.getText().toString();
-
+        String connection=edit_connection.getText().toString();
         String activity_name=edit_activity_name.getText().toString();
         boolean is_need_money=in_money.isChecked();
         int in_need_money;
@@ -169,7 +170,10 @@ public class EditAssociationActivityActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        add_activity_to_database(m_start,m_end,asso_name,introduction,m_photo,activity_name,in_need_money);
+                        if(connection.length()<5)
+                            Toast.makeText(this, "联系方式需要5字以上", Toast.LENGTH_SHORT).show();
+                        else
+                        add_activity_to_database(m_start,m_end,asso_name,introduction,m_photo,activity_name,in_need_money,connection);
                     }
                 }
             }
@@ -177,11 +181,11 @@ public class EditAssociationActivityActivity extends AppCompatActivity {
 
     }
 
-    private void add_activity_to_database(String m_start, String m_end, String asso_name, String introduction, Bitmap m_photo,String activity_name,int inNeedMoney) {
+    private void add_activity_to_database(String m_start, String m_end, String asso_name, String introduction, Bitmap m_photo, String activity_name, int inNeedMoney, String connection) {
       byte[] bytes=get_bit_image(m_photo);
             SQLiteDatabase db=dbHelper.getWritableDatabase();
-            db.execSQL("insert into ActivityTable(time_start,time_end,association,introduction,activity_name,image,inNeedMoney) values (?,?,?,?,?,?,?)"
-                    , new Object[] {m_start,m_end,asso_name,introduction,activity_name,bytes,inNeedMoney});
+            db.execSQL("insert into ActivityTable(time_start,time_end,association,introduction,activity_name,image,inNeedMoney,connection) values (?,?,?,?,?,?,?,?)"
+                    , new Object[] {m_start,m_end,asso_name,introduction,activity_name,bytes,inNeedMoney,connection});
 
 
         Intent intentRefresh=new Intent("com.example.jin.communitymanagement.RefreshReceiver");

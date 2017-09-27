@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new HomeFragment());
         fragments.add(new BorrowFragment());
         fragments.add(new DateFragment());
-        fragments.add(new MoneyFragment());
+       // fragments.add(new MoneyFragment());
         fragments.add(new MineFragment());
         adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
 
@@ -229,12 +229,12 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("主页", R.drawable.home, R.color.colorText);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("租赁", R.drawable.borrow, R.color.colorPrimaryDark);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("日程", R.drawable.date, R.color.colorPrimary);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("赞助", R.drawable.money, R.color.colorPrimary);
+       // AHBottomNavigationItem item4 = new AHBottomNavigationItem("赞助", R.drawable.money, R.color.colorPrimary);
         AHBottomNavigationItem item5 = new AHBottomNavigationItem("我的", R.drawable.mine, R.color.colorPrimary);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
-        bottomNavigation.addItem(item4);
+       // bottomNavigation.addItem(item4);
         bottomNavigation.addItem(item5);
         //设置背景颜色
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#333333"));

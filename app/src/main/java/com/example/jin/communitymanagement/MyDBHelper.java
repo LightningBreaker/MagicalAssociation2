@@ -29,7 +29,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
             +"introduction text,"
             +"activity_name text,"
             +"image BLOB,"
-            +"inNeedMoney integer)";
+            +"inNeedMoney integer," +
+            "connection text)";
     public  static  final  String CREATE_BORROW_TABLE="create table BorrowTable("+
             "time_start text,"
             +"time_end text,"
@@ -57,7 +58,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_BORROW_TABLE);
         for (int i=0;i<bitmapList.size();i++)
         add_activity_to_database(db,"开始时间：2017年9月1日23时00分00秒","结束时间：2017年9月1日23时00分00秒","魅团",
-                "这是测试的活动",bitmapList.get(i),"测试活动",0);
+                "这是测试的活动",bitmapList.get(i),"测试活动",0,"15212344321");
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -69,11 +70,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
        // Toast.makeText(mContext, "升级成功", Toast.LENGTH_SHORT).show();
     }
 
-    private void add_activity_to_database( SQLiteDatabase db ,String m_start, String m_end, String asso_name, String introduction, Bitmap m_photo, String activity_name, int inNeedMoney) {
+    private void add_activity_to_database( SQLiteDatabase db ,String m_start, String m_end, String asso_name, String introduction, Bitmap m_photo, String activity_name, int inNeedMoney,String connection) {
        byte[] image=get_bitimg(m_photo);
 
-            db.execSQL("insert into ActivityTable(time_start,time_end,association,introduction,activity_name,image,inNeedMoney) values (?,?,?,?,?,?,?)"
-                    , new Object[]{m_start, m_end, asso_name, introduction, activity_name,image, inNeedMoney});
+            db.execSQL("insert into ActivityTable(time_start,time_end,association,introduction,activity_name,image,inNeedMoney,connection) values (?,?,?,?,?,?,?,?)"
+                    , new Object[]{m_start, m_end, asso_name, introduction, activity_name,image, inNeedMoney,connection});
 
     }
     public byte[] get_bitimg(Bitmap bitmap)

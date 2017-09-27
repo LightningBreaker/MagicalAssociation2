@@ -265,6 +265,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra(Activity_InfoActivity.END_TIME,associationActivity.getEnd_time());
                 intent.putExtra(Activity_InfoActivity.ASS_NAME,associationActivity.getAssociationName());
                 intent.putExtra(Activity_InfoActivity.AC_NAME,associationActivity.getActivityName());
+                intent.putExtra(Activity_InfoActivity.CONNECTION,associationActivity.getConnection());
                 Bitmap newBit=  BaseActivity.zoomImg(associationActivity.getBitmap(),600,600);
                 byte[] bytes=get_bit_image(newBit);
 
@@ -384,10 +385,11 @@ public class HomeFragment extends Fragment {
                     String time_end = cursor2.getString( cursor2.getColumnIndex( "time_end" ) );
                     byte[] in = cursor2.getBlob(cursor2.getColumnIndex("image"));
                     Bitmap bitmap=getBmp(in);
+                    String connection=cursor2.getString((cursor2.getColumnIndex("connection")));
                     int inNeedMoney=cursor2.getInt(  cursor2.getColumnIndex( "inNeedMoney" ) );
                    AssociationActivity associationActivity=new AssociationActivity(association,activity_name,time_start,time_end,
                            bitmap,
-                           introduction,inNeedMoney);
+                           introduction,inNeedMoney,connection);
                     associationActivityList.add( associationActivity );
                     Log.d( TAG, "设备添加成功" );
                 } while (cursor2.moveToNext());
@@ -429,6 +431,8 @@ public class HomeFragment extends Fragment {
     {
          fabAdd=(FloatingActionButton)view.findViewById(R.id.fab_home_add_activity);
         initFabAdd(fabAdd);
+        fabFilter=(FloatingActionButton)view.findViewById(R.id.fab_home_filter);
+        initFabFilter(fabFilter);
           fabFilter=(FloatingActionButton)view.findViewById(R.id.fab_home_filter);
         textViewAdd=(TextView)view.findViewById(R.id.text_home_add);
         textViewFilter=(TextView)view.findViewById(R.id.text_home_filer);
@@ -455,6 +459,51 @@ public class HomeFragment extends Fragment {
         });
 
 
+    }
+
+    private void initFabFilter(final FloatingActionButton fabFilter) {
+        fabFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fabIsOpen)
+                {
+                    getItFilter();
+                    fabIsOpen=false;
+                    animateABCClose(fab_function,fabAdd,v,textViewAdd,textViewFilter,backPaper);
+                }
+            }
+        });
+    }
+
+    private void getItFilter() {
+        associationActivityList.clear();
+        SQLiteDatabase db=((MainActivity)getActivity()).getDbHelper().getWritableDatabase();
+        if(db.isOpen()) {
+            Cursor cursor2 = db.query( "ActivityTable", null, null, null, null, null, null );
+            if (cursor2.moveToFirst()) {
+
+                do {
+                    String activity_name = cursor2.getString( cursor2.getColumnIndex( "activity_name" ) );
+                    String association = cursor2.getString( cursor2.getColumnIndex( "association" ) );
+                    String introduction = cursor2.getString( cursor2.getColumnIndex( "introduction" ) );
+                    String time_start = cursor2.getString( cursor2.getColumnIndex( "time_start" ) );
+                    String time_end = cursor2.getString( cursor2.getColumnIndex( "time_end" ) );
+                    byte[] in = cursor2.getBlob(cursor2.getColumnIndex("image"));
+                    Bitmap bitmap=getBmp(in);
+                    String connection=cursor2.getString((cursor2.getColumnIndex("connection")));
+                    int inNeedMoney=cursor2.getInt(  cursor2.getColumnIndex( "inNeedMoney" ) );
+                    AssociationActivity associationActivity=new AssociationActivity(association,activity_name,time_start,time_end,
+                            bitmap,
+                            introduction,inNeedMoney,connection);
+                    if(inNeedMoney==1)
+                    associationActivityList.add( associationActivity );
+                    Log.d( TAG, "设备添加成功" );
+                } while (cursor2.moveToNext());
+            }
+            cursor2.close();
+        }
+        if(association_ac_adapter!=null)
+            association_ac_adapter.notifyDataSetChanged();
     }
 
     private void initFabAdd(FloatingActionButton fabAdd) {
